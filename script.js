@@ -1,66 +1,125 @@
 // --- SCRIPT DE LLUVIA DE CÓDIGO (MATRIX) ---
+// (Esta parte no ha cambiado)
 
 const canvas = document.getElementById('matrix-canvas');
 const ctx = canvas.getContext('2d');
 
-// Ajustar el canvas al tamaño de la ventana
 canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
 
-// Caracteres para la lluvia (puedes cambiarlos)
 const characters = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz!@#$%^&*()_+';
-// El color azul que pediste
 const matrixColor = '#00a6fb'; // Azul estilo Kali
 
 const fontSize = 16;
-// Calcular el número de columnas basado en el ancho y el tamaño de la fuente
 const columns = Math.floor(canvas.width / fontSize);
 
-// Crear un array para guardar la posición 'y' de cada gota de lluvia
-// 'drops[i]' será la posición 'y' de la gota en la columna 'i'
 const drops = [];
 for (let i = 0; i < columns; i++) {
     drops[i] = 1;
 }
 
 function drawMatrix() {
-    // Rellenar el fondo con un negro semi-transparente
-    // Esto crea el efecto de "estela" o desvanecimiento
     ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
     ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-    // Configurar el color y la fuente del texto
     ctx.fillStyle = matrixColor;
     ctx.font = `${fontSize}px monospace`;
 
-    // Recorrer cada columna (cada gota)
     for (let i = 0; i < drops.length; i++) {
-        // Elegir un caracter aleatorio
         const text = characters[Math.floor(Math.random() * characters.length)];
-        
-        // Dibujar el caracter en la posición (x, y)
-        // x = i * fontSize
-        // y = drops[i] * fontSize
         ctx.fillText(text, i * fontSize, drops[i] * fontSize);
 
-        // Si la gota llega al final de la pantalla...
         if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
-            // ...la reseteamos a la parte superior (posición 0)
             drops[i] = 0;
         }
-
-        // Incrementar la posición 'y' de la gota para que caiga
         drops[i]++;
     }
 }
 
-// Ejecutar la función 'drawMatrix' repetidamente
-// 33 milisegundos = aprox 30 frames por segundo
-setInterval(drawMatrix, 33);
+const matrixInterval = setInterval(drawMatrix, 33);
 
-// Bonus: Reajustar el canvas si la ventana cambia de tamaño
 window.addEventListener('resize', () => {
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
-    // Recalcular columnas (aunque para este script simple no es estrictamente necesario)
+    // No es necesario recalcular columnas aquí, la animación se ajustará
+});
+
+
+// --- NUEVO: SCRIPT PARA LOADER Y MODAL DE ÉTICA ---
+
+// Espera a que todo el contenido (DOM) esté cargado
+document.addEventListener("DOMContentLoaded", () => {
+    
+    // Elementos del DOM
+    const loaderOverlay = document.getElementById('loader-overlay');
+    const loaderText = document.getElementById('loader-text');
+    const modalOverlay = document.getElementById('modal-overlay');
+    const acceptBtn = document.getElementById('accept-btn');
+    const mainContent = document.getElementById('main-content');
+    
+    // Textos para la animación de carga "boot-up"
+    const bootSequence = [
+        "Booting Leviatham OS v1.0...",
+        "Initializing kernel modules...",
+        "Loading security protocols...",
+        "Mounting tool repositories...",
+        "Decrypting ethical framework...",
+        "All systems operational.",
+        "Access Granted. Awaiting user verification..."
+    ];
+    
+    let lineIndex = 0;
+    let charIndex = 0;
+    
+    // Función para simular el "tipeo"
+    function typeLoaderText() {
+        if (lineIndex < bootSequence.length) {
+            if (charIndex < bootSequence[lineIndex].length) {
+                // Escribe caracter por caracter
+                loaderText.innerHTML = bootSequence[lineIndex].substring(0, charIndex + 1);
+                charIndex++;
+                setTimeout(typeLoaderText, 20); // Velocidad de tipeo
+            } else {
+                // Pasa a la siguiente línea
+                loaderText.innerHTML = bootSequence[lineIndex]; // Asegura línea completa
+                charIndex = 0;
+                lineIndex++;
+                setTimeout(typeLoaderText, 700); // Pausa entre líneas
+            }
+        } else {
+            // Fin de la animación
+            setTimeout(showModal, 500); // Pausa antes de mostrar el modal
+        }
+    }
+    
+    // Función para ocultar loader y mostrar modal
+    function showModal() {
+        loaderOverlay.style.transition = "opacity 0.5s ease";
+        loaderOverlay.style.opacity = "0";
+        setTimeout(() => {
+            loaderOverlay.style.display = "none"; // Oculta el loader
+            modalOverlay.style.display = "flex"; // Muestra el modal
+        }, 500);
+    }
+    
+    // Event listener para el botón de Aceptar
+    acceptBtn.addEventListener('click', () => {
+        modalOverlay.style.transition = "opacity 0.5s ease";
+        modalOverlay.style.opacity = "0";
+        setTimeout(() => {
+            modalOverlay.style.display = "none"; // Oculta el modal
+            
+            // Muestra el contenido principal
+            mainContent.style.visibility = "visible";
+            mainContent.style.opacity = "0";
+            mainContent.style.transition = "opacity 1s ease";
+            setTimeout(() => {
+                mainContent.style.opacity = "1"; // Efecto fade-in
+            }, 10);
+            
+        }, 500);
+    });
+
+    // Iniciar la animación de carga
+    typeLoaderText();
+    
 });
