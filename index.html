@@ -3,52 +3,61 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Repositorio Ético - @Papaluck111</title>
+    <title>Leviatham - @PapaLucker111</title>
     <style>
-        /* --- ESTILOS GLOBALES --- */
+        /* --- ESTILOS GLOBALES (Sin cambios) --- */
         body {
             background-color: #000;
             color: #eee;
             font-family: 'Courier New', Courier, monospace;
             margin: 0;
-            overflow-x: hidden; /* Evita scroll horizontal */
+            overflow-x: hidden;
         }
 
-        /* --- FONDO DE LLUVIA DE CÓDIGO --- */
+        /* --- FONDO DE LLUVIA DE CÓDIGO (Sin cambios) --- */
         #matrix-canvas {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            z-index: -1; /* Lo pone detrás de todo */
+            z-index: -1;
         }
 
-        /* --- CONTENEDOR PRINCIPAL --- */
+        /* --- CONTENEDOR PRINCIPAL (Sin cambios) --- */
         .container {
             position: relative;
             z-index: 10;
             max-width: 1000px;
             margin: 0 auto;
             padding: 20px;
-            /* Fondo oscuro semi-transparente para leer mejor */
             background-color: rgba(0, 0, 10, 0.8);
             border: 1px solid #005f73;
             box-shadow: 0 0 20px #00a6fb;
         }
 
-        /* --- LOGO ASCII DE KALI --- */
+        /* --- LOGO ASCII (Mejorado) --- */
         #logo {
-            font-size: 10px; /* Ajusta el tamaño para que el ASCII se vea bien */
+            font-size: 8px; /* Ajustado para el nuevo logo */
             text-align: center;
-            color: #00a6fb; /* Azul Kali */
+            color: #00a6fb;
             text-shadow: 0 0 5px #00a6fb, 0 0 10px #00a6fb;
             line-height: 1.1;
-            white-space: pre; /* Mantiene los espacios del ASCII */
+            white-space: pre;
+            margin-bottom: 0px;
+        }
+        
+        /* --- NUEVO: Título "Leviatham" --- */
+        #logo-title {
+            text-align: center;
+            color: #90e0ef; /* Cyan brillante */
+            text-shadow: 0 0 10px #90e0ef, 0 0 15px #00a6fb;
+            font-size: 3em;
+            margin-top: 0;
             margin-bottom: 20px;
         }
 
-        /* --- TÍTULOS --- */
+        /* --- TÍTULOS (Sin cambios) --- */
         h1, h2 {
             color: #00a6fb;
             border-bottom: 2px solid #0077b6;
@@ -61,15 +70,14 @@
             font-size: 2.5em;
         }
 
-        /* --- GRID DE HERRAMIENTAS --- */
+        /* --- GRID DE HERRAMIENTAS (Sin cambios) --- */
         .tool-grid {
             display: grid;
-            /* Crea columnas automáticas que se adaptan */
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 20px;
         }
 
-        /* --- TARJETA DE HERRAMIENTA (Fácil de editar) --- */
+        /* --- TARJETA DE HERRAMIENTA (Sin cambios base) --- */
         .tool-card {
             background-color: rgba(0, 20, 40, 0.9);
             border: 1px solid #0077b6;
@@ -77,6 +85,8 @@
             padding: 15px 20px;
             transition: all 0.3s ease;
             box-shadow: 0 4px 8px rgba(0, 166, 251, 0.2);
+            display: flex; /* Flexbox para ordenar contenido */
+            flex-direction: column; /* Contenido en columna */
         }
 
         .tool-card:hover {
@@ -96,19 +106,78 @@
             font-size: 0.95em;
             line-height: 1.6;
             color: #caf0f8;
+            flex-grow: 1; /* Hace que el <p> principal crezca */
         }
 
-        /* --- BOTÓN ATRACTIVO (dentro de la tarjeta) --- */
+        /* --- NUEVO: Estilos para "Casos de Uso" --- */
+        .tool-card h4 {
+            color: #00a6fb;
+            margin-top: 15px;
+            margin-bottom: 5px;
+            font-size: 0.9em;
+            text-transform: uppercase;
+        }
+
+        .tool-card .use-case {
+            font-size: 0.9em;
+            color: #ade8f4; /* Un azul más claro */
+            margin-bottom: 15px;
+        }
+
+        /* --- NUEVO: Contenedor de Etiquetas --- */
+        .tags-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 15px; /* Espacio antes del botón */
+        }
+        
+        /* --- NUEVO: Estilo Base de Etiqueta --- */
+        .tag {
+            padding: 4px 10px;
+            border-radius: 4px;
+            font-size: 0.8em;
+            font-weight: bold;
+        }
+
+        /* --- NUEVO: Etiquetas de Curva de Aprendizaje --- */
+        .tag-curve {
+            color: #000;
+            text-shadow: 0 0 2px #fff;
+        }
+        .principiante {
+            background: linear-gradient(45deg, #00a6fb, #0077b6);
+            border: 1px solid #00a6fb;
+        }
+        .intermedio {
+            background: linear-gradient(45deg, #90e0ef, #00a6fb);
+            border: 1px solid #90e0ef;
+        }
+        .avanzado {
+            background: linear-gradient(45deg, #caf0f8, #90e0ef);
+            border: 1px solid #caf0f8;
+        }
+
+        /* --- NUEVO: Etiquetas de Licencia/Costo --- */
+        .tag-license {
+            background-color: #023e8a;
+            color: #e0f2f8;
+            border: 1px solid #0077b6;
+        }
+
+
+        /* --- BOTÓN (Sin cambios) --- */
         .btn {
             display: inline-block;
             padding: 8px 15px;
-            margin-top: 10px;
+            margin-top: auto; /* Empuja el botón al final */
             background-color: #0077b6;
             color: #fff;
             text-decoration: none;
             border-radius: 5px;
             font-weight: bold;
             transition: all 0.3s ease;
+            text-align: center; /* Asegura centrado del texto */
         }
 
         .btn:hover {
@@ -117,7 +186,7 @@
             box-shadow: 0 0 10px #00a6fb;
         }
 
-        /* --- BOTÓN FINAL MUY ATRACTIVO --- */
+        /* --- BOTÓN FINAL MUY ATRACTIVO (Sin cambios de estilo) --- */
         .final-btn-container {
             text-align: center;
             margin-top: 40px;
@@ -153,107 +222,199 @@
     <div class="container">
 
         <pre id="logo">
-                  ....
-                 .. . ...
-                ..   .  ...
-               ..     .   ...
-              ..       .    ...
-             ..         .     ...
-            ..           .      ...
-           ..             .       ...
-          ..               .        ...
-         ..                 .         ...
-        ..                   .          ...
-       ..                     .           ...
-      ..                       .            ...
-     .........................................
-    ...........................................
-     .........................................
-      ..                       .            ...
-       ..                     .           ...
-        ..                   .          ...
-         ..                 .         ...
-          ..               .        ...
-           ..             .       ...
-            ..           .      ...
-             ..         .     ...
-              ..       .    ...
-               ..     .   ...
-                ..   .  ...
-                 .. . ...
-                  ....
+                     ...
+                   ;::::;
+                 ;::::; :;
+                ;:::::'   :;
+               ;:::::;     ;.
+              ,:::::'       ;           OOO\
+              ::::::;       ;          OOOOO\
+              ;:::::;       ;         OOOOOOOO
+             ,;::::::;     ;'         / OOOOOOO
+           ;::::::::: '. :;          /  /OOOOOO
+          :::::::::::'  :;         /  / OOOOOO
+         ::::::::::::'  .;        /  /   OOOOO
+        ::::::::::::::'  ;       /  /     OOOO
+        ::::::::;:'     ;       /  /        OO
+        ::::::::;.     ;'      /  /
+        ::::::::;;      ;    /  /
+        ':;:::::::::.'    /  /
+          '".::::::::;.;'  /
+                ;...'
         </pre>
+        
+        <h1 id="logo-title">Leviatham</h1>
 
         <h1>Repositorio de Hacking Ético</h1>
 
         <h2>Recolección de Información (OSINT)</h2>
         <div class="tool-grid">
+            
             <div class="tool-card">
                 <h3>Maltego</h3>
                 <p>Herramienta líder en minería de datos y OSINT. Permite visualizar gráficamente las relaciones entre personas, dominios, IPs y más.</p>
+                
+                <h4>Casos de Uso:</h4>
+                <p class="use-case">Ciberinteligencia, análisis forense, mapeo de infraestructura de un atacante.</p>
+                
+                <div class="tags-container">
+                    <span class="tag tag-curve intermedio">Intermedio</span>
+                    <span class="tag tag-license">Comercial (Ver. Community)</span>
+                </div>
+                
                 <a href="https://www.maltego.com/" target="_blank" class="btn">Visitar Web</a>
             </div>
+            
             <div class="tool-card">
                 <h3>TheHarvester</h3>
-                <p>Script excelente para recolectar emails, subdominios, nombres de empleados y hosts desde fuentes públicas (Google, Bing, Shodan, etc.).</p>
+                <p>Script para recolectar emails, subdominios, nombres de empleados y hosts desde fuentes públicas (Google, Bing, Shodan, etc.).</p>
+                
+                <h4>Casos de Uso:</h4>
+                <p class="use-case">Fase inicial de pentesting, recolección de correos para phishing (ético), descubrimiento de activos.</p>
+                
+                <div class="tags-container">
+                    <span class="tag tag-curve principiante">Principiante</span>
+                    <span class="tag tag-license">Open Source</span>
+                </div>
+                
                 <a href="https://github.com/laramies/theHarvester" target="_blank" class="btn">Ver en GitHub</a>
             </div>
+            
             <div class="tool-card">
                 <h3>Shodan</h3>
-                <p>El "Google de los hackers". Un motor de búsqueda que permite encontrar dispositivos conectados a Internet (cámaras, servidores, IoT, etc.).</p>
+                <p>El "Google de los hackers". Un motor de búsqueda que permite encontrar dispositivos conectados a Internet (cámaras, servidores, IoT).</p>
+                
+                <h4>Casos de Uso:</h4>
+                <p class="use-case">Encontrar dispositivos IoT vulnerables, monitorizar activos expuestos de una empresa.</p>
+                
+                <div class="tags-container">
+                    <span class="tag tag-curve principiante">Principiante</span>
+                    <span class="tag tag-license">Freemium</span>
+                </div>
+                
                 <a href="https://www.shodan.io/" target="_blank" class="btn">Visitar Web</a>
             </div>
         </div>
 
         <h2>Análisis de Redes</h2>
         <div class="tool-grid">
+            
             <div class="tool-card">
                 <h3>Wireshark</h3>
                 <p>El analizador de protocolos de red más popular. Permite capturar y examinar tráfico de red en tiempo real a nivel de paquete.</p>
+                
+                <h4>Casos de Uso:</h4>
+                <p class="use-case">Análisis de tráfico, debugging de red, detección de intrusiones, análisis de malware.</p>
+                
+                <div class="tags-container">
+                    <span class="tag tag-curve intermedio">Intermedio</span>
+                    <span class="tag tag-license">Open Source</span>
+                </div>
+                
                 <a href="https://www.wireshark.org/" target="_blank" class="btn">Visitar Web</a>
             </div>
+            
             <div class="tool-card">
                 <h3>Nmap</h3>
                 <p>(Network Mapper) La herramienta esencial para el descubrimiento de redes y auditoría de seguridad. Escanea puertos, detecta servicios y S.O.</p>
+                
+                <h4>Casos de Uso:</h4>
+                <p class="use-case">Escaneo de puertos, descubrimiento de hosts, huella digital de S.O., inventario de red.</p>
+                
+                <div class="tags-container">
+                    <span class="tag tag-curve principiante">Principiante</span>
+                    <span class="tag tag-license">Open Source</span>
+                </div>
+                
                 <a href="https://nmap.org/" target="_blank" class="btn">Visitar Web</a>
             </div>
+            
             <div class="tool-card">
                 <h3>Metasploit</h3>
                 <p>El framework de explotación más conocido. Se usa para desarrollar, probar y ejecutar exploits con fines de pentesting y validación de seguridad.</p>
+                
+                <h4>Casos de Uso:</h4>
+                <p class="use-case">Explotación de vulnerabilidades, desarrollo de exploits, post-explotación, validación de parches.</p>
+                
+                <div class="tags-container">
+                    <span class="tag tag-curve avanzado">Avanzado</span>
+                    <span class="tag tag-license">Open Source (Framework)</span>
+                </div>
+                
                 <a href="https://www.metasploit.com/" target="_blank" class="btn">Visitar Web</a>
             </div>
         </div>
 
         <h2>Análisis de Vulnerabilidades Web</h2>
         <div class="tool-grid">
+            
             <div class="tool-card">
                 <h3>OWASP ZAP</h3>
-                <p>(Zed Attack Proxy) Escáner de seguridad web open-source mantenido por OWASP. Ideal para encontrar vulnerabilidades en aplicaciones web.</p>
+                <p>(Zed Attack Proxy) Escáner de seguridad web open-source mantenido por OWASP. Ideal para encontrar vulnerabilidades en apps web.</p>
+                
+                <h4>Casos de Uso:</h4>
+                <p class="use-case">Escaneo DAST, "spidering" de sitios, intercepción de peticiones, fuzzing de parámetros.</p>
+                
+                <div class="tags-container">
+                    <span class="tag tag-curve intermedio">Intermedio</span>
+                    <span class="tag tag-license">Open Source</span>
+                </div>
+                
                 <a href="https://www.zaproxy.org/" target="_blank" class="btn">Visitar Web</a>
             </div>
+            
             <div class="tool-card">
                 <h3>Burp Suite</h3>
-                <p>La plataforma integrada "todo en uno" para realizar pruebas de seguridad en aplicaciones web. Su proxy es el estándar de la industria.</p>
+                <p>La plataforma integrada "todo en uno" para pruebas de seguridad en apps web. Su proxy es el estándar de la industria.</p>
+                
+                <h4>Casos de Uso:</h4>
+                <p class="use-case">Intercepción y modificación de tráfico web, pentesting manual, escaneo de vulnerabilidades.</p>
+                
+                <div class="tags-container">
+                    <span class="tag tag-curve intermedio">Intermedio</span>
+                    <span class="tag tag-license">Comercial (Ver. Community)</span>
+                </div>
+                
                 <a href="https://portswigger.net/burp" target="_blank" class="btn">Visitar Web</a>
             </div>
         </div>
 
         <h2>Sistemas Operativos</h2>
         <div class="tool-grid">
+            
             <div class="tool-card">
                 <h3>Kali Linux</h3>
                 <p>La distribución de Linux de referencia para Pruebas de Penetración y Auditoría de Seguridad. Viene pre-cargada con cientos de herramientas.</p>
+                
+                <h4>Casos de Uso:</h4>
+                <p class="use-case">Plataforma completa de pentesting, auditoría de seguridad, laboratorios de hacking.</p>
+                
+                <div class="tags-container">
+                    <span class="tag tag-curve principiante">Principiante</span>
+                    <span class="tag tag-license">Open Source</span>
+                </div>
+                
                 <a href="https://www.kali.org/" target="_blank" class="btn">Visitar Web</a>
             </div>
+            
             <div class="tool-card">
                 <h3>Parrot OS</h3>
                 <p>Una distribución de Linux robusta enfocada en seguridad, privacidad y desarrollo. Es una gran alternativa a Kali, muy ligera y completa.</p>
+                
+                <h4>Casos de Uso:</h4>
+                <p class="use-case">Alternativa a Kali, enfocada en privacidad, análisis forense, desarrollo seguro.</p>
+                
+                <div class="tags-container">
+                    <span class="tag tag-curve principiante">Principiante</span>
+                    <span class="tag tag-license">Open Source</span>
+                </div>
+                
                 <a href="https://parrotsec.org/" target="_blank" class="btn">Visitar Web</a>
             </div>
         </div>
 
         <div class="final-btn-container">
-            <a href="https://github.com/Papaluck111" target="_blank" class="final-btn">@Papaluck111</a>
+            <a href="t.me/PapaLucker111" target="_blank" class="final-btn">@PapaLucker111</a>
         </div>
 
     </div>
